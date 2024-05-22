@@ -11,6 +11,9 @@ public class Main {
                 String outfile = args.length > 2 ? args[2] : "out.png";
                 ToImage.exec(args[1], outfile);
                 return;
+            } else if (args[0].compareTo("scan-stdout") == 0) {
+                ToBytes.exec(args[1], null);
+                return;
             }
         }
         System.err.println("Parameters: scan|generate <input file> [<output file>]");

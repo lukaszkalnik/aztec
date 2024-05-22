@@ -7,14 +7,13 @@ import boofcv.factory.fiducial.FactoryFiducial;
 import boofcv.io.image.ConvertBufferedImage;
 import boofcv.io.image.UtilImageIO;
 import boofcv.struct.image.GrayU8;
+import org.apache.commons.io.FileUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import org.apache.commons.io.FileUtils;
 
 public class ToBytes {
     public static void exec(String infile, String outfile) {
@@ -39,11 +38,15 @@ public class ToBytes {
             return;
         }
 
-        try {
-            FileUtils.writeStringToFile(new File(outfile), detections.get(0).message, StandardCharsets.ISO_8859_1);
-        } catch (IOException e) {
-            System.err.println("Error opening file " + outfile);
-            return;
+        if (outfile != null) {
+            try {
+                FileUtils.writeStringToFile(new File(outfile), detections.get(0).message, StandardCharsets.ISO_8859_1);
+            } catch (IOException e) {
+                System.err.println("Error opening file " + outfile);
+                return;
+            }
+        } else {
+            System.out.println(detections.get(0).message);
         }
     }
 }
